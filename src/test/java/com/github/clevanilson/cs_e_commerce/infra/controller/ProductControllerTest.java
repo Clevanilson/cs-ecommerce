@@ -20,7 +20,7 @@ public class ProductControllerTest {
     private MockMvc mockMvc;
 
     @Test 
-    void postProducts() throws Exception {
+    void postProductsSuccess() throws Exception {
         var requestBody = """
             {
                 "name": "Test product",
@@ -41,6 +41,28 @@ public class ProductControllerTest {
                 .content(requestBody))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(content().json(responseBody));
+    }
+
+    @Test 
+    void postProductsBadrequest() throws Exception {
+        var requestBody = """
+            {
+                "name": "Test product",
+                "description": "Some description",
+                "price": -10
+            }
+        """;
+        var responseBody = """
+            {
+                "message": "Price cannot be less than 1"
+            }
+        """;
+        mockMvc.perform(
+            post("/api/products")
+                .contentType("application/json")
+                .content(requestBody))
+                .andExpect(status().isBadRequest())
                 .andExpect(content().json(responseBody));
     }
 }
