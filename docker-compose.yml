@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=localdbuser
+      - POSTGRES_PASSWORD=localdbpassword
+      - POSTGRES_DB=ecommerce
+    ports:
+      - "5432:5432"

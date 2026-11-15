@@ -1,0 +1,6 @@
+CREATE TABLE products (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(64),
+    description VARCHAR(256),
+    price DOUBLE PRECISION
+);
