@@ -33,4 +33,11 @@ class ClientTest {
         );
         assertEquals(exception.getMessage(), "Name must contain at least 3 characters");
     }
+
+    @Test
+    void setId() {
+        var sut = clientSupport.create();
+        sut.setId(2133);
+        assertEquals(sut.getId(), 2133);
+    }
 }
