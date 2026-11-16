@@ -25,14 +25,16 @@ public class ProductControllerTest {
             {
                 "name": "Test product",
                 "description": "Some description",
-                "price": 10
+                "price": 10,
+                "quantity": 10
             }
         """;
         var responseBody = """
             {
                 "name": "Test product",
                 "description": "Some description",
-                "price": 10
+                "price": 10,
+                "quantity": 10
             }
         """;
         mockMvc.perform(
@@ -50,7 +52,8 @@ public class ProductControllerTest {
             {
                 "name": "Test product",
                 "description": "Some description",
-                "price": -10
+                "price": -10,
+                "quantity": 1
             }
         """;
         var responseBody = """

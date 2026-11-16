@@ -22,12 +22,14 @@ class ProductDatabaseRepositoryTest {
         var product = Product.create(
             String.format("Product %d", (int) Math.random() * 1000),
             "Some description",
-            10.50f
+            10.50f,
+            10
         );
         var createdProduct = sut.create(product);
         assertEquals(createdProduct.getID() > 0, true);
         assertEquals(createdProduct.getName(), product.getName());
         assertEquals(createdProduct.getDescription(), product.getDescription());
         assertEquals(createdProduct.getPrice(), product.getPrice());
+        assertEquals(createdProduct.getQuantity(), product.getQuantity());
     }
 }

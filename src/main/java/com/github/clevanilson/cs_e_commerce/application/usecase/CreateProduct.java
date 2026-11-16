@@ -19,14 +19,16 @@ public class CreateProduct {
         var product = Product.create(
             input.name(),
             input.description(),
-            input.price()
+            input.price(),
+            input.quantity()
         );
         var createdProduct = this.productRepository.create(product);
         return new ProductOutput(
             createdProduct.getID(),
             createdProduct.getName(),
             createdProduct.getDescription(), 
-            createdProduct.getPrice()
+            createdProduct.getPrice(),
+            createdProduct.getQuantity()
         );
     }
 }

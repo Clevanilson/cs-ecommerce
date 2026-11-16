@@ -3,6 +3,7 @@ CREATE TABLE products (
     name VARCHAR(64),
     description VARCHAR(256),
     price DOUBLE PRECISION,
+    quantity INT4,
     created_at DATE NOT NULL DEFAULT CURRENT_DATE,
     updated_at DATE
 );

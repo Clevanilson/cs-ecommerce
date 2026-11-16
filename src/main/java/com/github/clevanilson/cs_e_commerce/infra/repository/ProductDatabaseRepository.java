@@ -18,9 +18,9 @@ public class ProductDatabaseRepository implements ProductRepository {
     public Product create(Product product) {
         var sql = """
         INSERT INTO products
-            (name, description, price)
+            (name, description, price, quantity)
         VALUES
-            (?, ?, ?)
+            (?, ?, ?, ?)
         RETURNING id;
         """;
         var id = this.jdbcTemplate.queryForObject(
@@ -28,13 +28,15 @@ public class ProductDatabaseRepository implements ProductRepository {
             Long.class,
             product.getName(),
             product.getDescription(),
-            product.getPrice()
+            product.getPrice(),
+            product.getQuantity()
         );
         return new Product(
             id, 
             product.getName(),
             product.getDescription(),
-            product.getPrice()
+            product.getPrice(),
+            product.getQuantity()
         );
     }
 }

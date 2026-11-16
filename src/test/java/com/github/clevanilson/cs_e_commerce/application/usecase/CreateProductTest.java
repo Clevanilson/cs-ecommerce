@@ -20,13 +20,15 @@ class CreateProductTest {
         var productDTO = new CreateProductInput(
             "Some product",
             "Some description",
-            10.50f
+            10.50f,
+            10
         );
         var createdProduct = sut.execute(productDTO);
         assertEquals(createdProduct.id() > 0, true);
         assertEquals(createdProduct.name(), productDTO.name());
         assertEquals(createdProduct.description(), productDTO.description());
         assertEquals(createdProduct.price(), productDTO.price());
+        assertEquals(createdProduct.quantity(), productDTO.quantity());
     }
 
     @Test
@@ -34,7 +36,8 @@ class CreateProductTest {
         var productDTO = new CreateProductInput(
             "Wrong name ❌",
             "Some description",
-            10.50f
+            10.50f,
+            10
         );
         var exception = assertThrows(
             DomainError.class,
