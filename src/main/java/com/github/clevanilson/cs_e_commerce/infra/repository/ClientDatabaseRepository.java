@@ -15,7 +15,7 @@ public class ClientDatabaseRepository implements ClientRepository {
     }
 
     @Override
-    public Client create(Client client) {
+    public void create(Client client) {
         var sql = """
             INSERT INTO clients
             (name)
@@ -23,8 +23,12 @@ public class ClientDatabaseRepository implements ClientRepository {
             (?)
             RETURNING id;
         """;
-        var id = this.jdbcTemplate.queryForObject(sql, Long.class, client.getName());
-        return new Client(id, client.getName());
+        var id = this.jdbcTemplate.queryForObject(
+            sql, 
+            Long.class,
+            client.getName()
+        );
+        client.setId(id);
     }
 
 }

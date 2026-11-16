@@ -17,7 +17,7 @@ public class CreateClient {
 
     public ClientOutput execute(CreateClientInput input) {
         var client = Client.create(input.name());
-        var createdClient = clientRepository.create(client);
-        return new ClientOutput(createdClient.getId(), createdClient.getName());
+        clientRepository.create(client);
+        return new ClientOutput(client.getId(), client.getName());
     }
 }
