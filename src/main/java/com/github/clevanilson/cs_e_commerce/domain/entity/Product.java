@@ -24,8 +24,12 @@ public class Product {
         return new Product(0, name, description, price, quantity);
     }
 
-    public long getID() {
+    public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
