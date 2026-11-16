@@ -1,5 +1,6 @@
 package com.github.clevanilson.cs_e_commerce.infra.repository;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +16,7 @@ public class ProductDatabaseRepository implements ProductRepository {
     }
 
     @Override 
-    public Product create(Product product) {
+    public void create(Product product) {
         var sql = """
         INSERT INTO products
             (name, description, price, quantity)
@@ -31,12 +32,32 @@ public class ProductDatabaseRepository implements ProductRepository {
             product.getPrice(),
             product.getQuantity()
         );
-        return new Product(
-            id, 
-            product.getName(),
-            product.getDescription(),
-            product.getPrice(),
-            product.getQuantity()
-        );
+        product.setId(id);
+    }
+
+    @Override
+    public Product getById(long id) {
+        try {
+            var sql = """
+            SELECT name, description, price, quantity
+            FROM products
+            WHERE id = ?
+            """;
+            return jdbcTemplate.queryForObject(
+                sql,
+                (row, rowNumber) -> new Product(
+                    id, 
+                    row.getString("name"),
+                    row.getString("description"),
+                    row.getDouble("price"),
+                    row.getInt("quantity")
+                ),
+                id
+            );
+        }
+        catch(Exception exception) {
+            if (exception instanceof EmptyResultDataAccessException) return null;
+            throw exception;
+        }
     }
 }
