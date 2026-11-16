@@ -1,5 +1,6 @@
 package com.github.clevanilson.cs_e_commerce.infra.repository;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -23,12 +24,35 @@ public class ClientDatabaseRepository implements ClientRepository {
             (?)
             RETURNING id;
         """;
-        var id = this.jdbcTemplate.queryForObject(
+        var id = jdbcTemplate.queryForObject(
             sql, 
             Long.class,
             client.getName()
         );
         client.setId(id);
+    }
+
+    @Override
+    public Client getById(long id) {
+        try {
+            var sql = """
+            SELECT name
+            FROM clients
+            WHERE id = ?;
+            """;
+            return jdbcTemplate.queryForObject(
+                sql,
+                (row, rowNumber) -> new Client(
+                    id, 
+                    row.getString("name")
+                ),
+                id
+            );
+        }
+        catch(Exception exception) {
+            if (exception instanceof EmptyResultDataAccessException) return null;
+            throw exception;
+        }
     }
 
 }
