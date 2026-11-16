@@ -1,5 +1,6 @@
 package com.github.clevanilson.cs_e_commerce.support;
 
+import com.github.clevanilson.cs_e_commerce.domain.dto.CreateProductInput;
 import com.github.clevanilson.cs_e_commerce.domain.entity.Product;
 
 public class ProductSupport {
@@ -23,5 +24,9 @@ public class ProductSupport {
 
     public Product create() {
         return new Product(id, name, description, price, quantity);
+    }
+
+    public CreateProductInput createInput() {
+        return new CreateProductInput(name, description, price, quantity);
     }
 }

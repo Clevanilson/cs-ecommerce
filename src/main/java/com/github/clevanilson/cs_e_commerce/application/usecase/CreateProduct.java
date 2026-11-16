@@ -22,13 +22,13 @@ public class CreateProduct {
             input.price(),
             input.quantity()
         );
-        var createdProduct = this.productRepository.create(product);
+        this.productRepository.create(product);
         return new ProductOutput(
-            createdProduct.getID(),
-            createdProduct.getName(),
-            createdProduct.getDescription(), 
-            createdProduct.getPrice(),
-            createdProduct.getQuantity()
+            product.getId(),
+            product.getName(),
+            product.getDescription(), 
+            product.getPrice(),
+            product.getQuantity()
         );
     }
 }
