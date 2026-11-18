@@ -3,4 +3,4 @@ CREATE TABLE clients (
     name VARCHAR(64),
     created_at DATE NOT NULL DEFAULT CURRENT_DATE,
     updated_at DATE
-)
+);
