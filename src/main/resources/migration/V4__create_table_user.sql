@@ -1,0 +1,5 @@
+CREATE TABLE users (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    login VARCHAR(255) UNIQUE,
+    password varChar(255)
+);

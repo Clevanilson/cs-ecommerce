@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.github.clevanilson.cs_e_commerce.application.repository.ClientRepository;
@@ -55,7 +56,8 @@ public class OrderControllerTest {
         }
     }
 
-    @Test    
+    @Test
+    @WithMockUser
     void createOrderSuccess() throws Exception {
         orderSupport.quantity = 1;
         var requestBody = orderSupport.createRequest();
@@ -75,6 +77,7 @@ public class OrderControllerTest {
     }
 
     @Test
+    @WithMockUser
     void createOrderFail() throws Exception {
         orderSupport.quantity = 0;
         var requestBody = orderSupport.createRequest();
